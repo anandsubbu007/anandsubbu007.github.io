@@ -1,3 +1,0 @@
-:HL["/public/_next/static/chunks/0~3f0fll2fha~.css","style"]
-:HC["/",""]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"case-studies","param":null,"prefetchHints":0,"slots":{"children":{"name":"lendwise","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"X6_T-rTzYlaTNicK4bXMp"}
