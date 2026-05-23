@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ExternalLink, CheckCircle } from 'lucide-react'
+import { ExternalLink, CheckCircle, ChevronRight } from 'lucide-react'
 import { SectionHeader } from '@/components/shared/SectionHeader'
 import { breadFinancial } from '@/lib/data/breadFinancial'
 
@@ -19,7 +19,7 @@ export function CurrentWorkSection() {
           badge="Currently"
           title="Building at"
           titleHighlight="Bread Financial"
-          description="Senior Software Engineer — Native Android SDK, Flutter apps, CI/CD, and platform engineering for US fintech."
+          description="Senior Software Engineer — powering iOS & Android fintech apps used by millions of customers across the US."
           align="center"
         />
 
@@ -96,17 +96,48 @@ export function CurrentWorkSection() {
                   {breadFinancial.products.map((p) => (
                     <a
                       key={p.name}
-                      href={p.url}
-                      target="_blank"
+                      href={p.url || undefined}
+                      target={p.url ? "_blank" : undefined}
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 px-3 py-2 rounded-xl border border-blue-500/25 bg-blue-500/8 text-blue-300 text-sm font-medium hover:bg-blue-500/15 hover:border-blue-500/50 transition-all"
                     >
-                      {p.name} <ExternalLink size={12} />
+                      {p.name} {p.url && <ExternalLink size={12} />}
                     </a>
                   ))}
                 </div>
               </div>
             </motion.div>
+
+            {/* Key Technical Highlights */}
+            {breadFinancial.highlights && (
+              <motion.div
+                className="glass-card rounded-2xl p-5 border border-blue-500/20 bg-blue-500/3"
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+              >
+                <p className="mono-text text-[10px] text-blue-400 font-semibold tracking-widest uppercase mb-4">Technical Highlights</p>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  {breadFinancial.highlights.map((h, i) => (
+                    <motion.div
+                      key={h.title}
+                      className="rounded-xl p-4 border border-white/6 bg-white/3 hover:border-blue-500/30 transition-all"
+                      initial={{ opacity: 0, y: 8 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.35 + i * 0.08 }}
+                    >
+                      <div className="flex items-center gap-2 mb-2">
+                        <ChevronRight size={13} className="text-blue-400 shrink-0" />
+                        <span className="text-[#f1f5f9] font-semibold text-sm">{h.title}</span>
+                      </div>
+                      <p className="text-[#64748b] text-xs leading-relaxed pl-5">{h.detail}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
 
             {/* Tech used */}
             <motion.div
@@ -114,11 +145,11 @@ export function CurrentWorkSection() {
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
+              transition={{ delay: 0.4 }}
             >
               <p className="mono-text text-[10px] text-[#64748b] font-semibold tracking-widest uppercase mb-3">Tech at Bread Financial</p>
               <div className="flex flex-wrap gap-2">
-                {['Flutter', 'Kotlin', 'Android SDK', 'Jenkins', 'Okta', 'OWASP', 'JWT', 'OAuth2', 'Fastlane', 'Adobe Analytics', 'Medallia', 'Decibel'].map((t) => (
+                {['Flutter', 'Kotlin', 'Android SDK', 'iOS SDK', 'Jenkins', 'Okta', 'GoRouter', 'OWASP', 'JWT', 'OAuth2', 'Fastlane', 'Adobe Analytics', 'Medallia', 'Fraudnet'].map((t) => (
                   <span key={t} className="mono-text px-2.5 py-1 rounded-lg border border-white/10 text-[#94a3b8] text-xs bg-white/3">
                     {t}
                   </span>

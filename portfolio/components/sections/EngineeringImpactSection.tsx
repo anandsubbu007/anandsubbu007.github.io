@@ -3,11 +3,14 @@
 import { motion } from 'framer-motion'
 import { impactItems } from '@/lib/data/impact'
 import { SectionHeader } from '@/components/shared/SectionHeader'
-import { CheckCircle, Rocket, Zap, BarChart2 } from 'lucide-react'
+import { CheckCircle, Rocket, Zap, BarChart2, Shield, Package, Star, Users, TrendingUp, GraduationCap, Code2 } from 'lucide-react'
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string; style?: React.CSSProperties }>> = {
-  CheckCircle, Rocket, Zap, BarChart2,
+  CheckCircle, Rocket, Zap, BarChart2, Shield, Package, Star, Users, TrendingUp, GraduationCap, Code2,
   TestTube: CheckCircle,
+  Crown: Star,
+  Download: Zap,
+  Globe: BarChart2,
 }
 
 const categoryColor: Record<string, string> = {

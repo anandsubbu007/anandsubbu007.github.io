@@ -61,11 +61,24 @@ export function Navigation() {
         >
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center shadow-[0_0_16px_rgba(59,130,246,0.5)] group-hover:shadow-[0_0_24px_rgba(59,130,246,0.7)] transition-shadow duration-300">
-              <span className="mono-text text-white font-bold text-sm">AA</span>
+            <div className="w-9 h-9 rounded-xl overflow-hidden ring-2 ring-blue-500/50 group-hover:ring-blue-400/80 shadow-[0_0_16px_rgba(59,130,246,0.4)] group-hover:shadow-[0_0_24px_rgba(59,130,246,0.65)] transition-all duration-300">
+              <img
+                src="/images/profile/avatar.jpg"
+                alt="Anand Alagappan"
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  const t = e.currentTarget
+                  t.style.display = 'none'
+                  const fb = t.nextElementSibling as HTMLElement | null
+                  if (fb) fb.style.display = 'flex'
+                }}
+              />
+              <div className="w-full h-full bg-gradient-to-br from-blue-500 to-indigo-500 items-center justify-center hidden">
+                <span className="mono-text text-white font-bold text-sm">AA</span>
+              </div>
             </div>
             <span className="hidden sm:block text-[#f1f5f9] font-semibold text-sm tracking-wide">
-              Anand<span className="text-blue-400">.</span>
+              Anand Alagappan<span className="text-blue-400">.</span>
             </span>
           </Link>
 
