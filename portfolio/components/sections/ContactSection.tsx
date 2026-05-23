@@ -167,7 +167,7 @@ export function ContactSection() {
               <h3 className="text-[#f1f5f9] font-bold text-lg mb-2">Grab My Resume</h3>
               <p className="text-[#64748b] text-sm mb-5">6+ years of mobile engineering, fintech, SDK development, and platform engineering — in one document.</p>
               <a
-                href="/resume.pdf" // TODO: replace with actual resume PDF
+                href="https://drive.google.com/file/d/1A9VdrfQ2UyKTQxZ3Mz4p89OE7s5NT01T/view?usp=sharing"
                 download
                 className="inline-flex items-center gap-2 px-8 py-3 rounded-xl bg-blue-500 hover:bg-blue-400 text-white font-bold text-sm shadow-[0_0_24px_rgba(59,130,246,0.45)] hover:shadow-[0_0_36px_rgba(59,130,246,0.65)] transition-all duration-200"
               >

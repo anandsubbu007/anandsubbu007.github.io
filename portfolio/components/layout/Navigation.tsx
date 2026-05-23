@@ -116,7 +116,7 @@ export function Navigation() {
               <LinkedInIcon size={17} />
             </a>
             <a
-              href="/resume.pdf" // TODO: replace with real resume PDF
+              href="https://drive.google.com/file/d/1A9VdrfQ2UyKTQxZ3Mz4p89OE7s5NT01T/view?usp=sharing"
               download
               className="hidden sm:flex items-center gap-1.5 px-4 py-2 text-sm font-semibold rounded-xl bg-blue-500 hover:bg-blue-400 text-white shadow-[0_0_16px_rgba(59,130,246,0.4)] hover:shadow-[0_0_24px_rgba(59,130,246,0.6)] transition-all duration-200"
             >

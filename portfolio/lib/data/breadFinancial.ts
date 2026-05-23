@@ -54,7 +54,6 @@ export const breadFinancial = {
     },
     { name: "Native Android SDK", platform: "Android", url: "" },
     { name: "Bread Savings", platform: "Android & iOS", url: "" },
-    { name: "Project Monaco POC", platform: "Flutter", url: "" },
   ],
   seniorPeriod: "Nov 2024 – Present",
   swePeriod: "Sept 2023 – Nov 2024",

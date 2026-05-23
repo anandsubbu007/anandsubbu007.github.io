@@ -1,5 +1,5 @@
 // Profile data for Anand Alagappan
-// TODO: Replace avatarUrl with your actual photo at /public/images/profile/avatar.jpg
+// 
 // TODO: Replace resumeUrl with your actual resume PDF at /public/resume.pdf
 
 export const profile = {
@@ -16,8 +16,8 @@ export const profile = {
   phone: "+917708879071",
   location: "Bangalore, India",
   nativePlace: "Mannargudi, Tamil Nadu",
-  avatarUrl: "/images/profile/avatar.jpg", // TODO: Add your actual photo here
-  resumeUrl: "/resume.pdf", // TODO: Add your actual resume PDF here
+  avatarUrl: "/images/profile/avatar.jpg",
+  resumeUrl: "https://drive.google.com/file/d/1A9VdrfQ2UyKTQxZ3Mz4p89OE7s5NT01T/view?usp=sharing",
   playStoreUrl: "https://play.google.com/store/apps/developer?id=Subbu+App+Tech",
   transitionStory:
     "B.E. Mechanical (Anna University, 2019) → Data Science (Python, ML, TensorFlow) → self-taught Flutter → built ERP for family FMCG business → Senior Software Engineer. Driven by a passion for solving real problems with technology.",

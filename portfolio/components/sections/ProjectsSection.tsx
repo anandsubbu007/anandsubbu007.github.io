@@ -33,7 +33,7 @@ export function ProjectsSection() {
             <div
               className={`grid ${i % 2 === 0 ? 'lg:grid-cols-[280px_1fr]' : 'lg:grid-cols-[1fr_280px]'} gap-0 min-h-[340px]`}
             >
-              {/* Mobile frame — order changes on alternating rows */}
+              {/* Project visual — icon or screenshot */}
               <div
                 className={`flex items-center justify-center p-8 relative ${i % 2 !== 0 ? 'lg:order-last' : ''}`}
                 style={{
@@ -45,14 +45,39 @@ export function ProjectsSection() {
                 <motion.div
                   animate={{ y: [0, -8, 0] }}
                   transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.3 }}
-                  className="w-32"
+                  className="flex flex-col items-center gap-4"
                 >
-                  <MobileFrame
-                    gradientFrom={project.gradientFrom}
-                    gradientTo={project.gradientTo}
-                    title={project.title}
-                    className="w-full drop-shadow-2xl"
-                  />
+                  {project.iconUrl ? (
+                    <div
+                      className="w-28 h-28 rounded-3xl overflow-hidden shadow-2xl"
+                      style={{ boxShadow: `0 20px 60px ${project.gradientFrom}50` }}
+                    >
+                      <img
+                        src={project.iconUrl}
+                        alt={`${project.title} icon`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-32">
+                      <MobileFrame
+                        gradientFrom={project.gradientFrom}
+                        gradientTo={project.gradientTo}
+                        title={project.title}
+                        className="w-full drop-shadow-2xl"
+                      />
+                    </div>
+                  )}
+                  {project.screenshotUrl && (
+                    <div className="w-36 rounded-2xl overflow-hidden shadow-xl opacity-80"
+                      style={{ boxShadow: `0 8px 32px ${project.gradientFrom}30` }}>
+                      <img
+                        src={project.screenshotUrl}
+                        alt={`${project.title} screenshot`}
+                        className="w-full h-auto object-cover"
+                      />
+                    </div>
+                  )}
                 </motion.div>
               </div>
 

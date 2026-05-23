@@ -8,14 +8,17 @@ export interface Project {
   playStoreUrl?: string
   githubUrl?: string
   caseStudySlug?: string
-  color: string // tailwind gradient class names
-  gradientFrom: string // hex colors
+  color: string
+  gradientFrom: string
   gradientTo: string
   status: 'production' | 'active' | 'archived'
   featured: boolean
   flagship: boolean
   downloads?: string
   users?: string
+  iconUrl?: string          // app_icon.png path
+  screenshotUrl?: string    // dashboard screenshot
+  featureImageUrl?: string  // feature/splash image
 }
 
 export const projects: Project[] = [
@@ -45,6 +48,9 @@ export const projects: Project[] = [
     flagship: true,
     downloads: "1K+",
     users: "500+",
+    iconUrl: "/images/projects/vanigam/app_icon.png",
+    screenshotUrl: "/images/projects/vanigam/dashboard_straight.png",
+    featureImageUrl: "/images/projects/vanigam/Feature_image.png",
   },
   {
     id: "retailmart",
@@ -71,6 +77,8 @@ export const projects: Project[] = [
     status: "production",
     featured: true,
     flagship: false,
+    iconUrl: "/images/projects/retailmart/app_icon.png",
+    screenshotUrl: "/images/projects/retailmart/dashboard.png",
   },
   {
     id: "lendwise",
@@ -94,6 +102,9 @@ export const projects: Project[] = [
     status: "production",
     featured: true,
     flagship: false,
+    iconUrl: "/images/projects/lendwise/app_icon.png",
+    screenshotUrl: "/images/projects/lendwise/dashboard_straight.png",
+    featureImageUrl: "/images/projects/lendwise/Feature_image.png",
   },
   {
     id: "product-catalogue",
@@ -118,6 +129,7 @@ export const projects: Project[] = [
     flagship: false,
     downloads: "10K+",
     users: "4K+",
+    iconUrl: "/images/projects/product_ecatalogue/app_icon.png",
   },
   {
     id: "pixbrix",

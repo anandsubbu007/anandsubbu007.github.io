@@ -7,6 +7,7 @@ import {
 } from 'lucide-react'
 import { GitHubIcon, LinkedInIcon, KaggleIcon, LeetCodeIcon, StackOverflowIcon, MediumIcon } from '@/components/shared/SocialIcons'
 import { ParticleCanvas } from '@/components/shared/ParticleCanvas'
+import { profile } from '@/lib/data/profile'
 
 const ROLES = [
   'Flutter Architect',
@@ -60,52 +61,53 @@ function OrbitalBadge({ label, angle, color }: { label: string; angle: number; c
   )
 }
 
-// SVG Avatar – stylized vector of Indian man with glasses & short beard
-function AvatarSVG() {
+// Avatar — uses actual photo, falls back to SVG illustration
+function AvatarImage() {
+  const [useSvg, setUseSvg] = useState(false)
   return (
-    <svg viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-      {/* Background glow */}
-      <circle cx="100" cy="110" r="90" fill="url(#avatarGrad)" opacity="0.15" />
-      {/* Neck */}
-      <rect x="83" y="155" width="34" height="30" rx="6" fill="#c4956a" />
-      {/* Shoulders / shirt */}
-      <rect x="30" y="180" width="140" height="60" rx="20" fill="#1e3a5f" />
-      <rect x="30" y="180" width="140" height="20" rx="12" fill="#1d4ed8" opacity="0.6" />
-      {/* Head */}
-      <ellipse cx="100" cy="110" rx="52" ry="58" fill="#c4956a" />
-      {/* Hair */}
-      <path d="M48 90 Q48 48 100 46 Q152 48 152 90 L148 85 Q140 50 100 52 Q60 50 52 85Z" fill="#1a1a1a" />
-      {/* Short beard / stubble */}
-      <ellipse cx="100" cy="155" rx="30" ry="12" fill="#5a3a1a" opacity="0.55" />
-      <ellipse cx="78" cy="148" rx="14" ry="8" fill="#5a3a1a" opacity="0.45" />
-      <ellipse cx="122" cy="148" rx="14" ry="8" fill="#5a3a1a" opacity="0.45" />
-      {/* Mustache hint */}
-      <ellipse cx="100" cy="142" rx="16" ry="4" fill="#3a2010" opacity="0.45" />
-      {/* Eyes */}
-      <ellipse cx="80" cy="105" rx="9" ry="7" fill="white" />
-      <ellipse cx="120" cy="105" rx="9" ry="7" fill="white" />
-      <circle cx="81" cy="106" r="5" fill="#2c1810" />
-      <circle cx="121" cy="106" r="5" fill="#2c1810" />
-      <circle cx="83" cy="104" r="1.5" fill="white" />
-      <circle cx="123" cy="104" r="1.5" fill="white" />
-      {/* Glasses frame */}
-      <rect x="68" y="98" width="22" height="16" rx="7" fill="none" stroke="#1a1a1a" strokeWidth="2.5" />
-      <rect x="110" y="98" width="22" height="16" rx="7" fill="none" stroke="#1a1a1a" strokeWidth="2.5" />
-      <line x1="90" y1="104" x2="110" y2="104" stroke="#1a1a1a" strokeWidth="2" />
-      <line x1="46" y1="102" x2="68" y2="104" stroke="#1a1a1a" strokeWidth="2" />
-      <line x1="132" y1="104" x2="154" y2="102" stroke="#1a1a1a" strokeWidth="2" />
-      {/* Smile */}
-      <path d="M86 132 Q100 142 114 132" stroke="#8b5e3c" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-      {/* Ears */}
-      <ellipse cx="48" cy="112" rx="8" ry="12" fill="#c4956a" />
-      <ellipse cx="152" cy="112" rx="8" ry="12" fill="#c4956a" />
-      <defs>
-        <radialGradient id="avatarGrad" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#3b82f6" />
-          <stop offset="100%" stopColor="#6366f1" />
-        </radialGradient>
-      </defs>
-    </svg>
+    <>
+      {!useSvg ? (
+        <img
+          src="/images/profile/Avatar_with_mac.png"
+          alt="Anand Alagappan"
+          className="w-full h-full object-cover object-top"
+          onError={() => setUseSvg(true)}
+        />
+      ) : (
+        <svg viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+          <circle cx="100" cy="110" r="90" fill="url(#avatarGrad)" opacity="0.15" />
+          <rect x="83" y="155" width="34" height="30" rx="6" fill="#c4956a" />
+          <rect x="30" y="180" width="140" height="60" rx="20" fill="#1e3a5f" />
+          <rect x="30" y="180" width="140" height="20" rx="12" fill="#1d4ed8" opacity="0.6" />
+          <ellipse cx="100" cy="110" rx="52" ry="58" fill="#c4956a" />
+          <path d="M48 90 Q48 48 100 46 Q152 48 152 90 L148 85 Q140 50 100 52 Q60 50 52 85Z" fill="#1a1a1a" />
+          <ellipse cx="100" cy="155" rx="30" ry="12" fill="#5a3a1a" opacity="0.55" />
+          <ellipse cx="78" cy="148" rx="14" ry="8" fill="#5a3a1a" opacity="0.45" />
+          <ellipse cx="122" cy="148" rx="14" ry="8" fill="#5a3a1a" opacity="0.45" />
+          <ellipse cx="100" cy="142" rx="16" ry="4" fill="#3a2010" opacity="0.45" />
+          <ellipse cx="80" cy="105" rx="9" ry="7" fill="white" />
+          <ellipse cx="120" cy="105" rx="9" ry="7" fill="white" />
+          <circle cx="81" cy="106" r="5" fill="#2c1810" />
+          <circle cx="121" cy="106" r="5" fill="#2c1810" />
+          <circle cx="83" cy="104" r="1.5" fill="white" />
+          <circle cx="123" cy="104" r="1.5" fill="white" />
+          <rect x="68" y="98" width="22" height="16" rx="7" fill="none" stroke="#1a1a1a" strokeWidth="2.5" />
+          <rect x="110" y="98" width="22" height="16" rx="7" fill="none" stroke="#1a1a1a" strokeWidth="2.5" />
+          <line x1="90" y1="104" x2="110" y2="104" stroke="#1a1a1a" strokeWidth="2" />
+          <line x1="46" y1="102" x2="68" y2="104" stroke="#1a1a1a" strokeWidth="2" />
+          <line x1="132" y1="104" x2="154" y2="102" stroke="#1a1a1a" strokeWidth="2" />
+          <path d="M86 132 Q100 142 114 132" stroke="#8b5e3c" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+          <ellipse cx="48" cy="112" rx="8" ry="12" fill="#c4956a" />
+          <ellipse cx="152" cy="112" rx="8" ry="12" fill="#c4956a" />
+          <defs>
+            <radialGradient id="avatarGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#3b82f6" />
+              <stop offset="100%" stopColor="#6366f1" />
+            </radialGradient>
+          </defs>
+        </svg>
+      )}
+    </>
   )
 }
 
@@ -244,8 +246,9 @@ export function HeroSection() {
                 View Projects <ArrowRight size={16} />
               </button>
               <a
-                href="/resume.pdf"
-                download
+                href={profile.resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-2 px-6 py-3 rounded-xl border border-blue-500/40 hover:border-blue-500/70 text-blue-300 hover:text-blue-200 font-semibold text-sm hover:bg-blue-500/10 transition-all duration-200"
               >
                 <Download size={16} /> Resume
@@ -301,14 +304,13 @@ export function HeroSection() {
                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
               />
 
-              {/* Avatar container */}
+              {/* Avatar container — wider rect for photo with Mac */}
               <motion.div
-                className="relative w-48 h-48 rounded-full overflow-hidden border-2 border-blue-500/40 shadow-[0_0_40px_rgba(59,130,246,0.4)] bg-gradient-to-br from-[#0f1629] to-[#111827]"
+                className="relative w-56 h-64 rounded-2xl overflow-hidden border-2 border-blue-500/40 shadow-[0_0_40px_rgba(59,130,246,0.4)] bg-gradient-to-br from-[#0f1629] to-[#111827]"
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
               >
-                {/* TODO: Replace with real photo: <Image src="/images/profile/avatar.jpg" alt="Anand Alagappan" fill className="object-cover" /> */}
-                <AvatarSVG />
+                <AvatarImage />
               </motion.div>
 
               {/* Orbital tech badges */}
@@ -326,8 +328,8 @@ export function HeroSection() {
             >
               {[
                 { v: '6+', l: 'Years' },
-                { v: '13K+', l: 'Downloads' },
-                { v: 'Fintech', l: 'Domain' },
+                { v: '10M+', l: 'Users' },
+                { v: '5+', l: 'Domains' },
               ].map(({ v, l }) => (
                 <div key={l} className="flex flex-col items-center px-4 first:pl-0 last:pr-0">
                   <span className="text-xl font-bold text-[#f1f5f9]">{v}</span>
