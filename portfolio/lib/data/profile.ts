@@ -1,6 +1,4 @@
 // Profile data for Anand Alagappan
-// 
-// TODO: Replace resumeUrl with your actual resume PDF at /public/resume.pdf
 
 export const profile = {
   name: "Anand Alagappan",

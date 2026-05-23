@@ -68,7 +68,7 @@ function AvatarImage() {
     <>
       {!useSvg ? (
         <img
-          src="/images/profile/Avatar_with_mac.png"
+          src="/images/profile/avatar_with_mac.png"
           alt="Anand Alagappan"
           className="w-full h-full object-cover object-top"
           onError={() => setUseSvg(true)}
@@ -306,7 +306,7 @@ export function HeroSection() {
 
               {/* Avatar container — wider rect for photo with Mac */}
               <motion.div
-                className="relative w-56 h-64 rounded-2xl overflow-hidden border-2 border-blue-500/40 shadow-[0_0_40px_rgba(59,130,246,0.4)] bg-gradient-to-br from-[#0f1629] to-[#111827]"
+                className="relative w-55 h-55 rounded-full overflow-hidden border-2 border-blue-500/40 shadow-[0_0_40px_rgba(59,130,246,0.4)] bg-gradient-to-br from-[#0f1629] to-[#111827]"
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
               >
@@ -328,7 +328,7 @@ export function HeroSection() {
             >
               {[
                 { v: '6+', l: 'Years' },
-                { v: '10M+', l: 'Users' },
+                { v: '10M+', l: 'Impact' },
                 { v: '5+', l: 'Domains' },
               ].map(({ v, l }) => (
                 <div key={l} className="flex flex-col items-center px-4 first:pl-0 last:pr-0">
