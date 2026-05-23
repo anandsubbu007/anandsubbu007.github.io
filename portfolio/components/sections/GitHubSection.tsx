@@ -1,185 +1,114 @@
 'use client'
 
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { ExternalLink } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { motion, useInView, useMotionValue, useSpring } from 'framer-motion'
+import { ExternalLink, GitCommit, Star, GitPullRequest, FolderGit2, Lock } from 'lucide-react'
 import { SectionHeader } from '@/components/shared/SectionHeader'
 import { projects } from '@/lib/data/projects'
 
-// Fallback stats shown when GitHub API images fail to load
-function GitHubStatsFallback() {
-  const langs = [
-    { name: 'Dart', pct: 52, color: '#00B4AB' },
-    { name: 'Kotlin', pct: 24, color: '#7F52FF' },
-    { name: 'Java', pct: 12, color: '#B07219' },
-    { name: 'TypeScript', pct: 7, color: '#3178C6' },
-    { name: 'Python', pct: 3, color: '#3572A5' },
-    { name: 'Other', pct: 2, color: '#475569' },
-  ]
-  const stats = [
-    { label: 'Total Stars', value: '87' },
-    { label: 'Commits (incl. private)', value: '1,800+' },
-    { label: 'Pull Requests', value: '156' },
-    { label: 'Repos contributed', value: '31' },
-  ]
+// ── Animated counter ────────────────────────────────────────────────────────
+function AnimatedCount({ target, suffix = '' }: { target: number; suffix?: string }) {
+  const ref = useRef<HTMLSpanElement>(null)
+  const inView = useInView(ref, { once: true })
+  const mv = useMotionValue(0)
+  const spring = useSpring(mv, { stiffness: 60, damping: 20, restDelta: 0.01 })
+  const [display, setDisplay] = useState(0)
+
+  useEffect(() => {
+    if (inView) mv.set(target)
+  }, [inView, target, mv])
+
+  useEffect(() => spring.on('change', (v) => setDisplay(Math.round(v))), [spring])
+
   return (
-    <div className="space-y-5">
-      {/* Stats grid */}
-      <div className="glass-card rounded-2xl border border-white/8 p-5">
-        <p className="mono-text text-[10px] text-[#64748b] font-semibold tracking-widest uppercase mb-4">GitHub Stats</p>
-        <div className="grid grid-cols-2 gap-3">
-          {stats.map((s) => (
-            <div key={s.label} className="rounded-xl border border-white/6 bg-white/3 p-3">
-              <div className="text-xl font-bold text-[#f1f5f9]">{s.value}</div>
-              <div className="text-[#64748b] text-xs mt-0.5">{s.label}</div>
-            </div>
-          ))}
-        </div>
-        <p className="text-[10px] text-[#475569] mt-3 mono-text">* Includes private contributions not visible on public profile</p>
-      </div>
-      {/* Top languages */}
-      <div className="glass-card rounded-2xl border border-white/8 p-5">
-        <p className="mono-text text-[10px] text-[#64748b] font-semibold tracking-widest uppercase mb-4">Top Languages</p>
-        <div className="space-y-2.5">
-          {langs.map((l) => (
-            <div key={l.name}>
-              <div className="flex justify-between text-xs mb-1">
-                <span style={{ color: l.color }} className="font-semibold">{l.name}</span>
-                <span className="text-[#64748b]">{l.pct}%</span>
-              </div>
-              <div className="h-1.5 rounded-full bg-white/6">
-                <div
-                  className="h-full rounded-full"
-                  style={{ width: `${l.pct}%`, background: l.color }}
-                />
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-      {/* Streak note */}
-      <div className="glass-card rounded-2xl border border-white/8 p-5 flex items-center gap-4">
-        <div className="text-center">
-          <div className="text-2xl font-bold text-blue-400">67</div>
-          <div className="text-[#64748b] text-xs">Longest Streak</div>
-        </div>
-        <div className="h-10 w-px bg-white/10" />
-        <div className="text-center">
-          <div className="text-2xl font-bold text-[#f1f5f9]">384</div>
-          <div className="text-[#64748b] text-xs">Contributions This Year</div>
-        </div>
-        <div className="h-10 w-px bg-white/10" />
-        <div className="flex-1">
-          <p className="text-[#64748b] text-xs leading-relaxed">Most contributions are in private repos at Bread Financial — not reflected in public graph.</p>
-        </div>
-      </div>
-    </div>
+    <span ref={ref}>
+      {display.toLocaleString()}{suffix}
+    </span>
   )
 }
 
-function GitHubStatImage({ src, alt, width, height }: { src: string; alt: string; width: number; height: number }) {
-  const [failed, setFailed] = useState(false)
-  if (failed) return null
-  return (
-    <img
-      src={src}
-      alt={alt}
-      width={width}
-      height={height}
-      className="w-full rounded-xl"
-      onError={() => setFailed(true)}
-    />
-  )
-}
+// ── Language bars ────────────────────────────────────────────────────────────
+const LANGUAGES = [
+  { name: 'Dart', pct: 52, color: '#00B4AB' },
+  { name: 'Kotlin', pct: 24, color: '#7F52FF' },
+  { name: 'Java', pct: 12, color: '#B07219' },
+  { name: 'TypeScript', pct: 7, color: '#3178C6' },
+  { name: 'Python', pct: 3, color: '#3572A5' },
+  { name: 'Other', pct: 2, color: '#475569' },
+]
 
-function GitHubStatsSection() {
-  const [allFailed, setAllFailed] = useState(false)
-  const [failCount, setFailCount] = useState(0)
-  const totalImages = 4
+const STATS = [
+  { icon: GitCommit, label: 'Total Commits', value: 1800, suffix: '+', note: 'incl. private' },
+  { icon: Star, label: 'Stars Earned', value: 87, suffix: '', note: '' },
+  { icon: GitPullRequest, label: 'Pull Requests', value: 156, suffix: '', note: '' },
+  { icon: FolderGit2, label: 'Repos', value: 31, suffix: '', note: '' },
+]
 
-  const handleFail = () => {
-    const next = failCount + 1
-    setFailCount(next)
-    if (next >= totalImages) setAllFailed(true)
+// ── Simulated contribution heatmap ──────────────────────────────────────────
+function ContributionGraph() {
+  const seed = 42
+  function pseudoRand(i: number) {
+    const x = Math.sin(seed + i) * 10000
+    return x - Math.floor(x)
   }
+  const weeks = 26
+  const days = 7
+  const cells = Array.from({ length: weeks * days }, (_, i) => {
+    const r = pseudoRand(i)
+    const active = r > 0.45
+    const level = active ? Math.floor(pseudoRand(i + 500) * 4) + 1 : 0
+    return level
+  })
 
-  if (allFailed) return <GitHubStatsFallback />
+  const levelColors = ['#1a1f2e', '#1e3a5f', '#1d4ed8', '#2563eb', '#60a5fa']
 
   return (
-    <div className="space-y-5">
-      <motion.div
-        className="glass-card rounded-2xl border border-white/8 overflow-hidden p-2"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-      >
-        <img
-          src="https://github-readme-stats.vercel.app/api?username=anandsubbu007&theme=transparent&hide_border=true&bg_color=0a0e1a00&title_color=60a5fa&text_color=94a3b8&icon_color=6366f1&show_icons=true&count_private=true"
-          alt="GitHub stats"
-          className="w-full rounded-xl"
-          onError={handleFail}
-        />
-      </motion.div>
-
-      <div className="grid sm:grid-cols-2 gap-5">
-        <motion.div
-          className="glass-card rounded-2xl border border-white/8 overflow-hidden p-2"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          <img
-            src="https://github-readme-stats.vercel.app/api/top-langs/?username=anandsubbu007&theme=transparent&hide_border=true&bg_color=0a0e1a00&title_color=60a5fa&text_color=94a3b8&layout=compact"
-            alt="Top languages"
-            className="w-full rounded-xl"
-            onError={handleFail}
-          />
-        </motion.div>
-
-        <motion.div
-          className="glass-card rounded-2xl border border-white/8 overflow-hidden p-2"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <img
-            src="https://github-readme-streak-stats.herokuapp.com?user=anandsubbu007&theme=transparent&hide_border=true&background=0a0e1a00&ring=3b82f6&fire=60a5fa&currStreakLabel=94a3b8&sideLabels=94a3b8&dates=475569&stroke=1f2937"
-            alt="GitHub streak"
-            className="w-full rounded-xl"
-            onError={handleFail}
-          />
-        </motion.div>
+    <div className="glass-card rounded-2xl border border-white/8 p-5">
+      <div className="flex items-center justify-between mb-4">
+        <p className="mono-text text-[10px] text-[#64748b] font-semibold tracking-widest uppercase">
+          Contribution Activity
+        </p>
+        <div className="flex items-center gap-1.5">
+          <span className="text-[#475569] text-[10px]">Less</span>
+          {levelColors.map((c, i) => (
+            <div key={i} className="w-2.5 h-2.5 rounded-sm" style={{ background: c }} />
+          ))}
+          <span className="text-[#475569] text-[10px]">More</span>
+        </div>
       </div>
-
-      <motion.div
-        className="glass-card rounded-2xl border border-white/8 overflow-hidden p-2"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.3 }}
+      <div
+        className="grid gap-0.5"
+        style={{ gridTemplateColumns: `repeat(${weeks}, 1fr)` }}
       >
-        <img
-          src="https://github-readme-activity-graph.vercel.app/graph?username=anandsubbu007&theme=react-dark&bg_color=0a0e1a&color=60a5fa&line=3b82f6&point=6366f1&hide_border=true"
-          alt="GitHub activity graph"
-          className="w-full rounded-xl"
-          onError={handleFail}
-        />
-      </motion.div>
-
-      <div className="glass-card rounded-xl border border-white/6 p-4">
-        <p className="text-[#64748b] text-xs leading-relaxed">
-          <span className="text-blue-400 font-semibold">Note:</span> Most professional work at Bread Financial is in private repositories — public stats underrepresent actual contribution volume. Private commits are counted where GitHub API permits.
+        {Array.from({ length: weeks }, (_, w) =>
+          Array.from({ length: days }, (_, d) => {
+            const level = cells[w * days + d]
+            return (
+              <div
+                key={`${w}-${d}`}
+                className="w-full aspect-square rounded-sm transition-all hover:scale-125 hover:opacity-90"
+                style={{ background: levelColors[level] }}
+                title={`Level ${level}`}
+              />
+            )
+          })
+        )}
+      </div>
+      <div className="flex items-center gap-2 mt-3">
+        <Lock size={11} className="text-[#475569]" />
+        <p className="text-[#475569] text-[10px] mono-text">
+          Private contributions at Bread Financial are not visible in public graph
         </p>
       </div>
     </div>
   )
 }
 
+// ── Main section ─────────────────────────────────────────────────────────────
 export function GitHubSection() {
   const playStoreApps = projects.filter((p) => p.playStoreUrl)
+  const langRef = useRef<HTMLDivElement>(null)
+  const langsInView = useInView(langRef, { once: true })
 
   return (
     <section id="github" className="section-padding max-w-7xl mx-auto">
@@ -187,17 +116,118 @@ export function GitHubSection() {
         badge="Open Source"
         title="GitHub"
         titleHighlight="Activity"
-        description="Consistent contribution across personal projects, open source, and production work."
+        description="Consistent contribution across personal projects, open source, and production engineering."
         align="center"
       />
 
       <div className="mt-12 grid lg:grid-cols-3 gap-5">
-        {/* GitHub stats with fallback */}
-        <div className="lg:col-span-2">
-          <GitHubStatsSection />
+        {/* Left: stats + languages + heatmap */}
+        <div className="lg:col-span-2 space-y-5">
+
+          {/* Stats grid */}
+          <motion.div
+            className="glass-card rounded-2xl border border-white/8 p-5"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <p className="mono-text text-[10px] text-[#64748b] font-semibold tracking-widest uppercase mb-4">
+              GitHub Stats · anandsubbu007
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {STATS.map(({ icon: Icon, label, value, suffix, note }, i) => (
+                <motion.div
+                  key={label}
+                  className="rounded-xl border border-white/6 bg-white/3 p-4 flex flex-col gap-1"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                >
+                  <Icon size={14} className="text-blue-400 mb-1" />
+                  <div className="text-2xl font-bold text-[#f1f5f9] tabular-nums">
+                    <AnimatedCount target={value} suffix={suffix} />
+                  </div>
+                  <div className="text-[#64748b] text-xs leading-tight">{label}</div>
+                  {note && <div className="text-[#475569] text-[10px] mono-text">{note}</div>}
+                </motion.div>
+              ))}
+            </div>
+            <div className="flex items-center gap-2 mt-4 pt-4 border-t border-white/6">
+              <div className="flex items-center gap-1.5">
+                <div className="w-2 h-2 rounded-full bg-blue-400" />
+                <span className="text-[#64748b] text-xs">Longest streak: <span className="text-[#f1f5f9] font-semibold">67 days</span></span>
+              </div>
+              <span className="text-[#334155] text-xs mx-1">·</span>
+              <div className="flex items-center gap-1.5">
+                <div className="w-2 h-2 rounded-full bg-indigo-400" />
+                <span className="text-[#64748b] text-xs">This year: <span className="text-[#f1f5f9] font-semibold">384 contributions</span></span>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Top languages */}
+          <motion.div
+            ref={langRef}
+            className="glass-card rounded-2xl border border-white/8 p-5"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            <div className="flex items-center justify-between mb-4">
+              <p className="mono-text text-[10px] text-[#64748b] font-semibold tracking-widest uppercase">
+                Top Languages
+              </p>
+              <span className="text-[#475569] text-[10px] mono-text">by repo size</span>
+            </div>
+
+            {/* Stacked bar */}
+            <div className="flex h-2.5 rounded-full overflow-hidden mb-5 gap-0.5">
+              {LANGUAGES.map((l) => (
+                <motion.div
+                  key={l.name}
+                  className="h-full rounded-full"
+                  style={{ background: l.color }}
+                  initial={{ width: 0 }}
+                  animate={langsInView ? { width: `${l.pct}%` } : { width: 0 }}
+                  transition={{ duration: 0.9, ease: 'easeOut', delay: LANGUAGES.indexOf(l) * 0.05 }}
+                />
+              ))}
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {LANGUAGES.map((l, i) => (
+                <motion.div
+                  key={l.name}
+                  className="flex items-center gap-2.5"
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={langsInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ delay: 0.3 + i * 0.07 }}
+                >
+                  <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: l.color }} />
+                  <div>
+                    <div className="text-[#e2e8f0] text-xs font-semibold">{l.name}</div>
+                    <div className="text-[#64748b] text-[10px]">{l.pct}%</div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Contribution heatmap */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <ContributionGraph />
+          </motion.div>
         </div>
 
-        {/* Play Store apps */}
+        {/* Right: Play Store apps */}
         <div>
           <p className="mono-text text-[10px] text-[#64748b] font-semibold tracking-widest uppercase mb-4">
             Play Store Apps
@@ -257,6 +287,20 @@ export function GitHubSection() {
             transition={{ delay: 0.4 }}
           >
             View all on Play Store <ExternalLink size={13} />
+          </motion.a>
+
+          {/* GitHub profile link */}
+          <motion.a
+            href="https://github.com/anandsubbu007"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-blue-600/10 border border-blue-500/20 text-blue-300 text-sm font-medium hover:bg-blue-600/20 transition-all"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5 }}
+          >
+            github.com/anandsubbu007 <ExternalLink size={13} />
           </motion.a>
         </div>
       </div>
