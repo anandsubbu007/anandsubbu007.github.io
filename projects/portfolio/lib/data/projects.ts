@@ -1,3 +1,5 @@
+import { assetPath } from '@/lib/assetPath'
+
 export interface Project {
   id: string
   title: string
@@ -48,9 +50,9 @@ export const projects: Project[] = [
     flagship: true,
     downloads: "1K+",
     users: "500+",
-    iconUrl: "/images/projects/vanigam/app_icon.png",
-    screenshotUrl: "/images/projects/vanigam/dashboard_straight.png",
-    featureImageUrl: "/images/projects/vanigam/Feature_image.png",
+    iconUrl: assetPath("/images/projects/vanigam/app_icon.png"),
+    screenshotUrl: assetPath("/images/projects/vanigam/dashboard_straight.png"),
+    featureImageUrl: assetPath("/images/projects/vanigam/Feature_image.png"),
   },
   {
     id: "retailmart",
@@ -77,8 +79,8 @@ export const projects: Project[] = [
     status: "production",
     featured: true,
     flagship: false,
-    iconUrl: "/images/projects/retailmart/app_icon.png",
-    screenshotUrl: "/images/projects/retailmart/dashboard.png",
+    iconUrl: assetPath("/images/projects/retailmart/app_icon.png"),
+    screenshotUrl: assetPath("/images/projects/retailmart/dashboard.png"),
   },
   {
     id: "lendwise",
@@ -102,9 +104,9 @@ export const projects: Project[] = [
     status: "production",
     featured: true,
     flagship: false,
-    iconUrl: "/images/projects/lendwise/app_icon.png",
-    screenshotUrl: "/images/projects/lendwise/dashboard_straight.png",
-    featureImageUrl: "/images/projects/lendwise/Feature_image.png",
+    iconUrl: assetPath("/images/projects/lendwise/app_icon.png"),
+    screenshotUrl: assetPath("/images/projects/lendwise/dashboard_straight.png"),
+    featureImageUrl: assetPath("/images/projects/lendwise/Feature_image.png"),
   },
   {
     id: "product-catalogue",
@@ -129,7 +131,7 @@ export const projects: Project[] = [
     flagship: false,
     downloads: "10K+",
     users: "4K+",
-    iconUrl: "/images/projects/product_ecatalogue/app_icon.png",
+    iconUrl: assetPath("/images/projects/product_ecatalogue/app_icon.png"),
   },
   {
     id: "pixbrix",

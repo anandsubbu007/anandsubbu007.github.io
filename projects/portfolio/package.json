@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "deploy": "next build && rm -rf ../../docs/portfolio && mkdir -p ../../docs/portfolio && cp -R out/. ../../docs/portfolio && cd ../.. && git add docs/portfolio && git commit -m 'Deploy portfolio build' && git push origin main"
+    "deploy": "next build && rm -rf ../../docs/portfolio && mkdir -p ../../docs/portfolio && cp -R out/. ../../docs/portfolio && touch ../../docs/.nojekyll && cd ../.. && git add docs/portfolio docs/.nojekyll && git commit -m 'Deploy portfolio build' && git push origin main"
   },
   "dependencies": {
     "@base-ui/react": "^1.5.0",

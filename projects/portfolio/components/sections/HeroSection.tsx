@@ -8,6 +8,7 @@ import {
 import { GitHubIcon, LinkedInIcon, KaggleIcon, LeetCodeIcon, StackOverflowIcon, MediumIcon } from '@/components/shared/SocialIcons'
 import { ParticleCanvas } from '@/components/shared/ParticleCanvas'
 import { profile } from '@/lib/data/profile'
+import { assetPath } from '@/lib/assetPath'
 
 const ROLES = [
   'Flutter Architect',
@@ -68,7 +69,7 @@ function AvatarImage() {
     <>
       {!useSvg ? (
         <img
-          src="/images/profile/avatar_with_mac.png"
+          src={assetPath("/images/profile/avatar_with_mac.png")}
           alt="Anand Alagappan"
           className="w-full h-full object-cover object-top"
           onError={() => setUseSvg(true)}

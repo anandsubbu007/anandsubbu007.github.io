@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import Link from 'next/link'
 import { GitHubIcon, LinkedInIcon } from '@/components/shared/SocialIcons'
+import { assetPath } from '@/lib/assetPath'
 
 const navLinks = [
   { label: 'About', href: '#about' },
@@ -63,7 +64,7 @@ export function Navigation() {
           <Link href="/" className="flex items-center gap-2.5 group" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
             <div className="w-9 h-9 rounded-xl overflow-hidden ring-2 ring-blue-500/50 group-hover:ring-blue-400/80 shadow-[0_0_16px_rgba(59,130,246,0.4)] group-hover:shadow-[0_0_24px_rgba(59,130,246,0.65)] transition-all duration-300">
               <img
-                src="/images/profile/avatar.jpg"
+                src={assetPath("/images/profile/avatar.jpg")}
                 alt="Anand Alagappan"
                 className="w-full h-full object-cover"
                 onError={(e) => {
