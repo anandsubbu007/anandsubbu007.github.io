@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   ChevronDown, Download, ArrowRight, Mail, X,
 } from 'lucide-react'
-import { GitHubIcon, LinkedInIcon, KaggleIcon, LeetCodeIcon, StackOverflowIcon, MediumIcon } from '@/components/shared/SocialIcons'
+import { GitHubIcon, LinkedInIcon, LeetCodeIcon, StackOverflowIcon, MediumIcon } from '@/components/shared/SocialIcons'
 import { ParticleCanvas } from '@/components/shared/ParticleCanvas'
 import { profile } from '@/lib/data/profile'
 import { assetPath } from '@/lib/assetPath'
@@ -24,7 +24,6 @@ const SOCIAL = [
   { label: 'Medium', href: 'https://medium.com/@anandsubbu7', icon: MediumIcon, color: '#00ab6c' },
   { label: 'StackOverflow', href: 'https://stackoverflow.com/users/12379401/anand-a-l', icon: StackOverflowIcon, color: '#f48024' },
   { label: 'Twitter / X', href: 'https://twitter.com/AL_Anandsubbu', icon: X, color: '#1da1f2' },
-  { label: 'Kaggle', href: 'https://kaggle.com/anandsubbu007', icon: KaggleIcon, color: '#20beff' },
   { label: 'LeetCode', href: 'https://leetcode.com/Anandsubbu', icon: LeetCodeIcon, color: '#ffa116' },
 ]
 
@@ -185,7 +184,7 @@ export function HeroSection() {
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <span className="mono-text text-blue-400 text-sm font-medium tracking-wide">
-                {'< Senior Mobile Systems Engineer />'}
+                {'< Senior Mobile Engineer — Flutter & Android />'}
               </span>
             </motion.div>
 
@@ -233,12 +232,22 @@ export function HeroSection() {
               Building scalable mobile platforms, SDKs, and production-grade fintech applications with focus on architecture, performance, security, and developer experience.
             </motion.p>
 
+            {/* Availability CTA line */}
+            <motion.p
+              className="text-sm font-medium text-blue-300/80 border-l-2 border-blue-500/50 pl-3"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+            >
+              Available for senior remote roles — Flutter, Android, fintech &amp; platform engineering.
+            </motion.p>
+
             {/* CTA buttons */}
             <motion.div
               className="flex flex-wrap gap-3 pt-1"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.65 }}
+              transition={{ duration: 0.6, delay: 0.7 }}
             >
               <button
                 onClick={scrollToProjects}

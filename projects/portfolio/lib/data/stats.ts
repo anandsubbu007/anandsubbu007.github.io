@@ -1,11 +1,11 @@
 export interface Stat {
-  id: string
-  label: string
-  value: number
-  suffix: string
-  prefix: string
-  description: string
-  color: string
+  id: string;
+  label: string;
+  value: number;
+  suffix: string;
+  prefix: string;
+  description: string;
+  color: string;
 }
 
 export const stats: Stat[] = [
@@ -20,11 +20,12 @@ export const stats: Stat[] = [
   },
   {
     id: "professional-users",
-    label: "Users Served",
+    label: "App Users Reached",
     value: 10,
     suffix: "M+",
     prefix: "",
-    description: "iOS & Android users across professional fintech apps",
+    description:
+      "Contributed to fintech apps used by 10M+ users across iOS & Android",
     color: "#10b981",
   },
   {
@@ -63,4 +64,4 @@ export const stats: Stat[] = [
     description: "Eliminated redundant calls, cut server cost",
     color: "#f59e0b",
   },
-]
+];

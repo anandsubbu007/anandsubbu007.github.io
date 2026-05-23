@@ -97,6 +97,7 @@ export const projects: Project[] = [
     ],
     tech: ["Flutter", "Firebase", "Dart", "Secure Storage", "REST APIs"],
     playStoreUrl: "https://play.google.com/store/apps/details?id=com.subbu.lend_wise",
+    githubUrl: "https://github.com/anandsubbu007/Lendwise-Pawn_shop_ledger",
     caseStudySlug: "lendwise",
     color: "from-emerald-600 to-emerald-400",
     gradientFrom: "#059669",

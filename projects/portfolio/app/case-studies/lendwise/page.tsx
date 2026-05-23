@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { ArrowLeft, ExternalLink } from 'lucide-react'
+import { GitHubIcon } from '@/components/shared/SocialIcons'
 
 export default function LendWiseCaseStudy() {
   return (
@@ -23,6 +24,10 @@ export default function LendWiseCaseStudy() {
             <a href="https://play.google.com/store/apps/details?id=com.subbu.lend_wise" target="_blank" rel="noopener noreferrer"
               className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-semibold text-sm transition-all">
               <ExternalLink size={15} /> Play Store
+            </a>
+            <a href="https://github.com/anandsubbu007/Lendwise-Pawn_shop_ledger" target="_blank" rel="noopener noreferrer"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/15 text-[#94a3b8] hover:text-[#f1f5f9] hover:border-white/25 font-semibold text-sm transition-all">
+              <GitHubIcon size={15} /> GitHub
             </a>
           </div>
         </div>
@@ -72,11 +77,18 @@ export default function LendWiseCaseStudy() {
         </section>
 
         <section className="glass-card rounded-2xl p-6 border border-emerald-500/25 text-center">
-          <h3 className="text-[#f1f5f9] font-bold text-lg mb-2">View on Play Store</h3>
-          <a href="https://play.google.com/store/apps/details?id=com.subbu.lend_wise" target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-semibold text-sm transition-all">
-            <ExternalLink size={16} /> Open Play Store
-          </a>
+          <h3 className="text-[#f1f5f9] font-bold text-lg mb-2">Explore the Full Code</h3>
+          <p className="text-[#64748b] text-sm mb-5">The full codebase including architecture, state management, and financial data handling is available on GitHub.</p>
+          <div className="flex flex-wrap gap-3 justify-center">
+            <a href="https://github.com/anandsubbu007/Lendwise-Pawn_shop_ledger" target="_blank" rel="noopener noreferrer"
+              className="flex items-center gap-2 px-6 py-3 rounded-xl border border-white/15 text-[#94a3b8] hover:text-[#f1f5f9] hover:border-white/25 font-semibold text-sm transition-all">
+              <GitHubIcon size={16} /> View Full GitHub README
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.subbu.lend_wise" target="_blank" rel="noopener noreferrer"
+              className="flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-semibold text-sm transition-all">
+              <ExternalLink size={16} /> Play Store Listing
+            </a>
+          </div>
         </section>
       </div>
     </main>

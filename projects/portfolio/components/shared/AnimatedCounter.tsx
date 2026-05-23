@@ -18,7 +18,7 @@ export function AnimatedCounter({
   duration = 1800,
   className,
 }: AnimatedCounterProps) {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(value)
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-40px' })
   const startedRef = useRef(false)
