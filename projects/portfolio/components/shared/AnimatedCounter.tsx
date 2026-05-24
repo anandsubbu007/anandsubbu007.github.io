@@ -11,25 +11,38 @@ interface AnimatedCounterProps {
   className?: string
 }
 
+function getStartValue(target: number) {
+  if (target <= 0) return 0
+  if (target <= 10) return Math.max(1, target - 1)
+  return Math.max(1, Math.floor(target * 0.9))
+}
+
 export function AnimatedCounter({
   value,
   suffix = '',
   prefix = '',
-  duration = 1800,
+  duration = 900,
   className,
 }: AnimatedCounterProps) {
-  const [count, setCount] = useState(value)
+  const [count, setCount] = useState(() => getStartValue(value))
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-40px' })
   const startedRef = useRef(false)
 
   useEffect(() => {
+    setCount(getStartValue(value))
+    startedRef.current = false
+  }, [value])
+
+  useEffect(() => {
     if (!inView || startedRef.current) return
     startedRef.current = true
 
-    const start = 0
+    const start = getStartValue(value)
     const end = value
     const startTime = performance.now()
+
+    setCount(start)
 
     const easeOut = (t: number) => 1 - Math.pow(1 - t, 3)
 

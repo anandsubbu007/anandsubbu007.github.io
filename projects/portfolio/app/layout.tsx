@@ -18,12 +18,13 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://anandsubbu007.github.io"),
-  title: "Anand Alagappan | Senior Mobile Systems Engineer",
+  title: "Anand Alagappan | Flutter Engineer, Android Developer, Senior Mobile Systems Engineer",
   description:
-    "Senior Mobile Systems Engineer specializing in Flutter, Android SDK development, Fintech, and enterprise mobile platforms.",
+    "Flutter Engineer and Android Developer with 6+ years building SDKs, fintech apps, and scalable enterprise mobile platforms.",
   keywords: [
     "Flutter Engineer",
     "Android Developer",
+    "Flutter Developer",
     "Senior Mobile Engineer",
     "SDK Developer",
     "Fintech Mobile",
@@ -38,18 +39,18 @@ export const metadata: Metadata = {
     apple: "/images/profile/avatar.jpg",
   },
   openGraph: {
-    title: "Anand Alagappan | Senior Mobile Systems Engineer",
+    title: "Anand Alagappan | Flutter Engineer and Android Developer",
     description:
-      "Senior Mobile Systems Engineer specializing in Flutter, Android SDK development, Fintech, and enterprise mobile platforms.",
+      "Flutter Engineer and Android Developer with 6+ years building SDKs, fintech apps, and scalable enterprise mobile platforms.",
     type: "website",
     url: "https://anandsubbu007.github.io/portfolio",
     images: "/images/profile/avatar.jpg",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Anand Alagappan | Senior Mobile Systems Engineer",
+    title: "Anand Alagappan | Flutter Engineer and Android Developer",
     description:
-      "Senior Mobile Systems Engineer specializing in Flutter, Android SDK development, Fintech, and enterprise mobile platforms.",
+      "Flutter Engineer and Android Developer with 6+ years building SDKs, fintech apps, and scalable enterprise mobile platforms.",
     images: "/images/profile/avatar.jpg",
   },
 }

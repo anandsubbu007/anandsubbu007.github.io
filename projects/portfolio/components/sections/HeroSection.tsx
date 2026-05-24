@@ -208,13 +208,13 @@ export function HeroSection() {
               transition={{ delay: 0.5 }}
             >
               <span className="text-[#64748b] text-lg font-medium">I build as</span>
-              <AnimatePresence mode="wait">
+              <AnimatePresence initial={false}>
                 <motion.span
                   key={roleIndex}
                   className="text-blue-400 text-lg font-semibold mono-text"
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -12 }}
+                  initial={false}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
                   transition={{ duration: 0.3 }}
                 >
                   {ROLES[roleIndex]}
