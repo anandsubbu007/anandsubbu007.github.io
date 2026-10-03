@@ -14,6 +14,11 @@ npm run dev      # http://localhost:3000
 npm run build    # production static export → out/
 ```
 
+### Deploy
+
+```bash
+npm run deploy
+```
 ---
 
 ## What To Update (Developer Guide)
@@ -21,52 +26,62 @@ npm run build    # production static export → out/
 **All personal content lives in `lib/data/`. Zero hardcoded strings in components.**
 
 ### `lib/data/profile.ts`
+
 Your name, role, tagline, bio, email, phone, location, avatar URL, resume link, education, mission, vision.
 
-| Field | What to update |
-|---|---|
+| Field       | What to update                                                             |
+| ----------- | -------------------------------------------------------------------------- |
 | `avatarUrl` | Replace `/images/profile/avatar-placeholder.svg` with your real photo path |
-| `resumeUrl` | Replace `/resume.pdf` with your actual resume file |
-| `bio[]` | Array of bio paragraph strings |
-| `mission` | Your mission statement |
-| `vision` | Your vision statement |
+| `resumeUrl` | Replace `/resume.pdf` with your actual resume file                         |
+| `bio[]`     | Array of bio paragraph strings                                             |
+| `mission`   | Your mission statement                                                     |
+| `vision`    | Your vision statement                                                      |
 
 ### `lib/data/social.ts`
+
 All social profile URLs. Update `url` fields for GitHub, LinkedIn, Twitter, Medium, StackOverflow, Kaggle, LeetCode, Play Store.
 
 ### `lib/data/projects.ts`
+
 Project cards shown in the Featured Projects section.
 
-| Field | Notes |
-|---|---|
-| `title` | Project name |
-| `description` | 1-2 sentence project description |
-| `tech[]` | Tech stack badges |
-| `playStoreUrl` | Link to Play Store listing (or `null`) |
-| `githubUrl` | GitHub repo link (or `null`) |
-| `imageUrl` | Mockup image path under `public/images/projects/` |
-| `featured` | Set `true` to show in featured grid |
-| `metrics[]` | Key stats (downloads, users, etc.) |
+| Field          | Notes                                             |
+| -------------- | ------------------------------------------------- |
+| `title`        | Project name                                      |
+| `description`  | 1-2 sentence project description                  |
+| `tech[]`       | Tech stack badges                                 |
+| `playStoreUrl` | Link to Play Store listing (or `null`)            |
+| `githubUrl`    | GitHub repo link (or `null`)                      |
+| `imageUrl`     | Mockup image path under `public/images/projects/` |
+| `featured`     | Set `true` to show in featured grid               |
+| `metrics[]`    | Key stats (downloads, users, etc.)                |
 
 ### `lib/data/techStack.ts`
+
 7 tech categories. Add/remove skills per category.
 
 ### `lib/data/experience.ts`
+
 Work history timeline. Each entry has `company`, `role`, `period`, `location`, `bullets[]`, `projects[]`.
 
 ### `lib/data/stats.ts`
+
 Animated counter stats in the About section. Update `value`, `suffix`, `label` for each stat.
 
 ### `lib/data/impact.ts`
+
 Engineering impact achievements. Each item: `metric`, `description`, `icon`, `color`.
 
 ### `lib/data/domains.ts`
+
 6 engineering domain cards. Update `title`, `description`, `bullets[]`, `accentColor` per domain.
 
 ### `lib/data/aiTools.ts`
+
 AI tools section. Each tool: `name`, `description`, `useCases[]`, `icon` (lucide name), `color`.
 
 ### `lib/data/breadFinancial.ts`
+
 Current employer details, metrics, product links. Update when you change jobs.
 
 ---
@@ -87,11 +102,11 @@ Current employer details, metrics, product links. Update when you change jobs.
 
 ## Case Study Pages
 
-| Route | File |
-|---|---|
-| `/case-studies/vanigam` | `app/case-studies/vanigam/page.tsx` |
-| `/case-studies/retailmart` | `app/case-studies/retailmart/page.tsx` |
-| `/case-studies/lendwise` | `app/case-studies/lendwise/page.tsx` |
+| Route                           | File                                        |
+| ------------------------------- | ------------------------------------------- |
+| `/case-studies/vanigam`         | `app/case-studies/vanigam/page.tsx`         |
+| `/case-studies/retailmart`      | `app/case-studies/retailmart/page.tsx`      |
+| `/case-studies/lendwise`        | `app/case-studies/lendwise/page.tsx`        |
 | `/case-studies/bread-financial` | `app/case-studies/bread-financial/page.tsx` |
 
 To add a new case study: create `app/case-studies/your-project/page.tsx`, copy structure from existing, add `caseStudyUrl` in `lib/data/projects.ts`.
@@ -104,13 +119,13 @@ Full design system in `app/globals.css` (TailwindCSS v4 CSS-first config).
 
 ### CSS Utility Classes
 
-| Class | Usage |
-|---|---|
-| `glass-card` | Frosted glass card |
-| `gradient-text` | Animated blue→indigo gradient text |
-| `glow-text` | Blue text shadow glow |
-| `mono-text` | JetBrains Mono font |
-| `section-padding` | Responsive section padding |
+| Class             | Usage                              |
+| ----------------- | ---------------------------------- |
+| `glass-card`      | Frosted glass card                 |
+| `gradient-text`   | Animated blue→indigo gradient text |
+| `glow-text`       | Blue text shadow glow              |
+| `mono-text`       | JetBrains Mono font                |
+| `section-padding` | Responsive section padding         |
 
 ### Colors
 
@@ -124,26 +139,49 @@ Full design system in `app/globals.css` (TailwindCSS v4 CSS-first config).
 ## Deployment
 
 ### Vercel (Recommended)
+
 Connect repo to Vercel — auto-detects Next.js. Remove `output: 'export'` from `next.config.ts` for full SSR.
 
 ### GitHub Pages
+
 ```bash
 npm run build
 # Deploy out/ directory to GitHub Pages
 ```
 
+### App Static Content
+
+Place app HTML, images, stylesheets, and other static files in `static/`.
+`npm run deploy` builds the portfolio into `docs/portfolio/` and copies the
+contents of `static/` into `docs/`, preserving folders and filenames. It then
+commits and pushes the release, including the copied static files.
+
+| Source                                     | Published URL                                               |
+| ------------------------------------------ | ----------------------------------------------------------- |
+| `static/app/policy.html`                   | `https://subbuapptech.in/app/policy.html`                   |
+| `static/app/policy/index.html`             | `https://subbuapptech.in/app/policy/`                       |
+| `static/tvlink_remote/privacy-policy.html` | `https://subbuapptech.in/tvlink_remote/privacy-policy.html` |
+
+Use relative links for assets alongside your HTML. Static app content does not
+use the portfolio's `/portfolio` base path. To copy these files without
+committing or pushing, run `npm run copy:static`. `npm run build` by itself
+only exports the portfolio. Copying overwrites matching files but does not
+remove previously published files; remove those from `docs/` explicitly when
+retiring a page. Avoid paths that would overwrite the portfolio or other
+existing site pages unless that is intentional.
+
 ---
 
 ## Tech Stack
 
-| Package | Version |
-|---|---|
-| Next.js | 16.2.6 |
-| React | 19 |
-| TypeScript | 5 |
-| TailwindCSS | v4 |
-| Framer Motion | 12.x |
-| lucide-react | 1.16.0 |
+| Package       | Version |
+| ------------- | ------- |
+| Next.js       | 16.2.6  |
+| React         | 19      |
+| TypeScript    | 5       |
+| TailwindCSS   | v4      |
+| Framer Motion | 12.x    |
+| lucide-react  | 1.16.0  |
 
 > **Note on icons**: lucide-react v1.x removed `Github`, `Linkedin`, `Twitter`.
 > Use `GitHubIcon`, `LinkedInIcon` etc. from `components/shared/SocialIcons.tsx`.
